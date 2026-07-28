@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, markRaw, onMounted, ref, watch } from 'vue'
+import { computed, markRaw, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import {
   BookOpen,
   CheckCircle2,
@@ -42,8 +42,12 @@ const topics = [
   },
 ]
 
-const hashTopic = window.location.hash.replace('#', '') as TopicId
-const activeTopic = ref<TopicId>(topics.some((topic) => topic.id === hashTopic) ? hashTopic : 'mvcc')
+function topicFromHash(): TopicId {
+  const hashTopic = window.location.hash.replace('#', '') as TopicId
+  return topics.some((topic) => topic.id === hashTopic) ? hashTopic : 'mvcc'
+}
+
+const activeTopic = ref<TopicId>(topicFromHash())
 const theme = ref<'light' | 'dark'>('light')
 const currentTopic = computed(() => topics.find((topic) => topic.id === activeTopic.value) ?? topics[0])
 
@@ -57,6 +61,10 @@ function toggleTheme() {
   theme.value = theme.value === 'light' ? 'dark' : 'light'
 }
 
+function syncTopicFromHash() {
+  activeTopic.value = topicFromHash()
+}
+
 watch(theme, (value) => {
   document.documentElement.dataset.theme = value
   localStorage.setItem('learn-view-theme', value)
@@ -66,7 +74,10 @@ onMounted(() => {
   const saved = localStorage.getItem('learn-view-theme')
   const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
   theme.value = saved === 'dark' || (!saved && prefersDark) ? 'dark' : 'light'
+  window.addEventListener('hashchange', syncTopicFromHash)
 })
+
+onBeforeUnmount(() => window.removeEventListener('hashchange', syncTopicFromHash))
 </script>
 
 <template>
