@@ -4,16 +4,18 @@ import {
   BookOpen,
   CheckCircle2,
   Database,
+  MessagesSquare,
   Moon,
   Network,
   RadioTower,
   Sun,
 } from '@lucide/vue'
 import MvccLab from './components/MvccLab.vue'
+import KafkaLab from './components/KafkaLab.vue'
 import RedisClusterLab from './components/RedisClusterLab.vue'
 import RedisSentinelLab from './components/RedisSentinelLab.vue'
 
-type TopicId = 'mvcc' | 'redis-sentinel' | 'redis-cluster'
+type TopicId = 'mvcc' | 'redis-sentinel' | 'redis-cluster' | 'kafka'
 
 const topics = [
   {
@@ -39,6 +41,14 @@ const topics = [
     subtitle: '槽位路由与副本选举',
     icon: markRaw(Network),
     component: markRaw(RedisClusterLab),
+  },
+  {
+    id: 'kafka' as TopicId,
+    group: '消息中间件',
+    title: 'Apache Kafka',
+    subtitle: '生产、复制与消费组',
+    icon: markRaw(MessagesSquare),
+    component: markRaw(KafkaLab),
   },
 ]
 
@@ -112,7 +122,7 @@ onBeforeUnmount(() => window.removeEventListener('hashchange', syncTopicFromHash
     <div class="app-body">
       <aside class="sidebar">
         <nav aria-label="实验主题">
-          <template v-for="group in ['数据库原理', '分布式系统']" :key="group">
+          <template v-for="group in ['数据库原理', '分布式系统', '消息中间件']" :key="group">
             <div class="nav-group-label">{{ group }}</div>
             <button
               v-for="topic in topics.filter((item) => item.group === group)"
@@ -140,7 +150,7 @@ onBeforeUnmount(() => window.removeEventListener('hashchange', syncTopicFromHash
         class="main-content"
         :class="{
           'main-content--mvcc': activeTopic === 'mvcc',
-          'main-content--redis': ['redis-sentinel', 'redis-cluster'].includes(activeTopic),
+          'main-content--redis': ['redis-sentinel', 'redis-cluster', 'kafka'].includes(activeTopic),
         }"
       >
         <Transition name="lab-switch" mode="out-in">

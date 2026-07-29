@@ -37,7 +37,12 @@ const emit = defineEmits<{
       </button>
     </div>
 
-    <div class="step-scrubber" :class="{ 'is-dense': total > 24 }" role="group" aria-label="选择步骤">
+    <div
+      class="step-scrubber"
+      :class="{ 'is-dense': total > 24, 'is-ultra-dense': total > 36 }"
+      role="group"
+      aria-label="选择步骤"
+    >
       <button
         v-for="index in total"
         :key="index"

@@ -29,6 +29,12 @@ describe('App hash navigation', () => {
     await nextTick()
 
     expect(wrapper.get('.current-path strong').text()).toBe('Redis Cluster')
+
+    window.location.hash = '#kafka'
+    window.dispatchEvent(new HashChangeEvent('hashchange'))
+    await nextTick()
+
+    expect(wrapper.get('.current-path strong').text()).toBe('Apache Kafka')
     wrapper.unmount()
   })
 })
