@@ -4,6 +4,7 @@ import {
   kafkaFrames,
   kafkaPartitionForKey,
   kafkaTopic,
+  isKafkaBrokerId,
   type KafkaConsumerGroupId,
   type KafkaFrame,
   type KafkaPartitionId,
@@ -39,6 +40,8 @@ describe('Kafka multi-broker simulation', () => {
     expect(topology.partitions.every(({ replicas }) => replicas.length === 3)).toBe(true)
     expect(topology.partitions.every(({ replicas }) => replicas.filter(({ role }) => role === 'leader').length === 1)).toBe(true)
     expect(topology.partitions.every(({ replicas }) => replicas.every(({ inSync }) => inSync))).toBe(true)
+    expect(isKafkaBrokerId('b1')).toBe(true)
+    expect(isKafkaBrokerId('billing-c1')).toBe(false)
   })
 
   it('uses Kafka-compatible key hashing to reach all three partitions', () => {

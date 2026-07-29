@@ -5,6 +5,7 @@ import { Activity, Database, Layers3, MessagesSquare, Send, Server, Users } from
 import PlayerControls from './PlayerControls.vue'
 import { useStepPlayer } from '../composables/useStepPlayer'
 import {
+  isKafkaBrokerId,
   kafkaFrames,
   type KafkaBrokerId,
   type KafkaConsumerGroupId,
@@ -93,7 +94,7 @@ function isRouteNode(nodeId: KafkaNodeId) {
 }
 
 function routeEndpoint(nodeId: KafkaNodeId) {
-  if (nodeId.startsWith('b') && frame.value.event.partition !== null) {
+  if (isKafkaBrokerId(nodeId) && frame.value.event.partition !== null) {
     return `${nodeId}-p${frame.value.event.partition}`
   }
   return nodeId

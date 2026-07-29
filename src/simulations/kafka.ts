@@ -126,6 +126,10 @@ export interface KafkaFrame extends KafkaProtocolState {
 
 export const kafkaBrokerIds = ['b1', 'b2', 'b3'] as const satisfies readonly KafkaBrokerId[]
 
+export function isKafkaBrokerId(nodeId: KafkaNodeId): nodeId is KafkaBrokerId {
+  return kafkaBrokerIds.some((brokerId) => brokerId === nodeId)
+}
+
 export const kafkaTopic: KafkaTopicConfig = {
   name: 'orders',
   partitionCount: 3,
