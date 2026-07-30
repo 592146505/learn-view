@@ -7,15 +7,17 @@ import {
   MessagesSquare,
   Moon,
   Network,
+  Rabbit,
   RadioTower,
   Sun,
 } from '@lucide/vue'
 import MvccLab from './components/MvccLab.vue'
 import KafkaLab from './components/KafkaLab.vue'
+import RabbitLab from './components/RabbitLab.vue'
 import RedisClusterLab from './components/RedisClusterLab.vue'
 import RedisSentinelLab from './components/RedisSentinelLab.vue'
 
-type TopicId = 'mvcc' | 'redis-sentinel' | 'redis-cluster' | 'kafka'
+type TopicId = 'mvcc' | 'redis-sentinel' | 'redis-cluster' | 'kafka' | 'rabbitmq'
 
 const topics = [
   {
@@ -49,6 +51,14 @@ const topics = [
     subtitle: '生产、复制与消费组',
     icon: markRaw(MessagesSquare),
     component: markRaw(KafkaLab),
+  },
+  {
+    id: 'rabbitmq' as TopicId,
+    group: '消息中间件',
+    title: 'RabbitMQ',
+    subtitle: 'Confirm、Return 与 Ack',
+    icon: markRaw(Rabbit),
+    component: markRaw(RabbitLab),
   },
 ]
 
@@ -150,7 +160,7 @@ onBeforeUnmount(() => window.removeEventListener('hashchange', syncTopicFromHash
         class="main-content"
         :class="{
           'main-content--mvcc': activeTopic === 'mvcc',
-          'main-content--redis': ['redis-sentinel', 'redis-cluster', 'kafka'].includes(activeTopic),
+          'main-content--redis': ['redis-sentinel', 'redis-cluster', 'kafka', 'rabbitmq'].includes(activeTopic),
         }"
       >
         <Transition name="lab-switch" mode="out-in">

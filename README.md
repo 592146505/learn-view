@@ -7,6 +7,8 @@
 - MySQL InnoDB MVCC：对比 Repeatable Read 与 Read Committed 的 Read View 和版本链可见性
 - Redis Sentinel：展示 SDOWN、ODOWN、协调者授权、副本选择、晋升与拓扑收敛
 - Redis Cluster：展示哈希槽路由、PFAIL/FAIL 本地视图、副本选举与槽位所有权收敛
+- Apache Kafka：展示分区路由、副本同步、高水位、消费者组与 Leader 故障转移
+- RabbitMQ：展示 Publisher Confirm、mandatory Return、manual Ack/Nack 与断线重投
 
 ## 本地运行
 

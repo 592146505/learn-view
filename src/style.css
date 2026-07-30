@@ -2869,6 +2869,543 @@ button:disabled {
   color: var(--green);
 }
 
+.eyebrow--rabbit {
+  color: var(--amber);
+}
+
+.scenario-chip__dot--rabbit {
+  background: var(--amber);
+}
+
+.step-index--rabbit {
+  color: var(--amber);
+  background: var(--amber-soft);
+}
+
+.rabbit-topology-wrap {
+  height: 100%;
+  min-height: 0;
+}
+
+.rabbit-topology {
+  position: relative;
+  display: grid;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  grid-template-columns: minmax(135px, 0.72fr) minmax(230px, 1.25fr) minmax(145px, 0.78fr);
+  gap: 18px;
+  align-items: center;
+  padding: 16px 18px;
+}
+
+.rabbit-event-layer {
+  position: absolute;
+  z-index: 4;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.rabbit-event-path {
+  fill: none;
+  stroke: var(--amber);
+  stroke-width: 2;
+  stroke-dasharray: 5 5;
+}
+
+.rabbit-event-path.kind-route,
+.rabbit-event-path.kind-deliver {
+  stroke: var(--blue);
+}
+
+.rabbit-event-path.kind-confirm,
+.rabbit-event-path.kind-ack {
+  stroke: var(--green);
+}
+
+.rabbit-event-path.kind-return,
+.rabbit-event-path.kind-nack,
+.rabbit-event-path.kind-fault {
+  stroke: var(--danger);
+}
+
+.rabbit-arrow-head {
+  fill: context-stroke;
+}
+
+.rabbit-message-dot circle:last-child {
+  fill: var(--amber);
+}
+
+.rabbit-message-dot__ring {
+  fill: color-mix(in srgb, var(--amber) 12%, transparent);
+  stroke: var(--amber);
+  stroke-width: 1.5;
+}
+
+.rabbit-message-dot.kind-route circle:last-child,
+.rabbit-message-dot.kind-deliver circle:last-child {
+  fill: var(--blue);
+}
+
+.rabbit-message-dot.kind-route .rabbit-message-dot__ring,
+.rabbit-message-dot.kind-deliver .rabbit-message-dot__ring {
+  fill: color-mix(in srgb, var(--blue) 12%, transparent);
+  stroke: var(--blue);
+}
+
+.rabbit-message-dot.kind-confirm circle:last-child,
+.rabbit-message-dot.kind-ack circle:last-child {
+  fill: var(--green);
+}
+
+.rabbit-message-dot.kind-confirm .rabbit-message-dot__ring,
+.rabbit-message-dot.kind-ack .rabbit-message-dot__ring {
+  fill: color-mix(in srgb, var(--green) 12%, transparent);
+  stroke: var(--green);
+}
+
+.rabbit-message-dot.kind-return circle:last-child,
+.rabbit-message-dot.kind-nack circle:last-child,
+.rabbit-message-dot.kind-fault circle:last-child {
+  fill: var(--danger);
+}
+
+.rabbit-message-dot.kind-return .rabbit-message-dot__ring,
+.rabbit-message-dot.kind-nack .rabbit-message-dot__ring,
+.rabbit-message-dot.kind-fault .rabbit-message-dot__ring {
+  fill: color-mix(in srgb, var(--danger) 12%, transparent);
+  stroke: var(--danger);
+}
+
+.rabbit-node,
+.rabbit-broker {
+  position: relative;
+  z-index: 2;
+  min-width: 0;
+}
+
+.rabbit-node {
+  overflow: hidden;
+  background: var(--surface);
+  border: 1px solid var(--line-strong);
+  border-radius: 7px;
+  box-shadow: var(--shadow-soft);
+  transition: border-color 180ms ease, background 180ms ease;
+}
+
+.rabbit-node.is-active {
+  background: var(--amber-soft);
+  border-color: var(--amber);
+}
+
+.rabbit-node.is-failed {
+  background: var(--danger-soft);
+  border-color: var(--danger);
+}
+
+.rabbit-node > header,
+.rabbit-exchange > header,
+.rabbit-queue > header {
+  display: flex;
+  min-width: 0;
+  min-height: 30px;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 8px;
+  border-bottom: 1px solid var(--line);
+}
+
+.rabbit-node > header svg {
+  color: var(--amber);
+}
+
+.rabbit-node > header strong {
+  color: var(--text);
+  font-size: 10px;
+}
+
+.rabbit-node > header small {
+  margin-left: auto;
+  overflow: hidden;
+  color: var(--green);
+  font-family: "SFMono-Regular", Consolas, monospace;
+  font-size: 6px;
+  font-weight: 750;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.rabbit-node.is-failed > header small {
+  color: var(--danger);
+}
+
+.rabbit-publisher,
+.rabbit-consumer {
+  display: grid;
+  min-height: 174px;
+  grid-template-rows: auto auto minmax(0, 1fr) auto;
+}
+
+.rabbit-flags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  padding: 7px 8px 0;
+}
+
+.rabbit-flags span {
+  padding: 3px 5px;
+  color: var(--muted);
+  background: var(--surface-subtle);
+  border-radius: 3px;
+  font-family: "SFMono-Regular", Consolas, monospace;
+  font-size: 7px;
+}
+
+.rabbit-flags span.is-on {
+  color: var(--green);
+  background: var(--green-soft);
+}
+
+.rabbit-current-message {
+  display: grid;
+  min-width: 0;
+  gap: 3px;
+  align-content: center;
+  padding: 9px;
+}
+
+.rabbit-current-message small {
+  color: var(--muted);
+  font-size: 7px;
+}
+
+.rabbit-current-message strong {
+  color: var(--text);
+  font-family: "SFMono-Regular", Consolas, monospace;
+  font-size: 12px;
+}
+
+.rabbit-current-message span {
+  overflow: hidden;
+  color: var(--text-soft);
+  font-family: "SFMono-Regular", Consolas, monospace;
+  font-size: 7px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.rabbit-publisher > footer,
+.rabbit-consumer > footer {
+  display: flex;
+  min-height: 28px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 5px;
+  padding: 5px 8px;
+  color: var(--muted);
+  background: var(--surface-subtle);
+  border-top: 1px solid var(--line);
+  font-family: "SFMono-Regular", Consolas, monospace;
+  font-size: 7px;
+}
+
+.rabbit-publisher > footer span:first-child {
+  color: var(--green);
+}
+
+.rabbit-publisher > footer .has-return {
+  color: var(--danger);
+}
+
+.rabbit-consumer > footer code {
+  overflow: hidden;
+  color: var(--green);
+  font-size: 7px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.rabbit-broker {
+  display: grid;
+  gap: 5px;
+  align-items: center;
+}
+
+.rabbit-exchange {
+  min-height: 68px;
+}
+
+.rabbit-exchange > header svg {
+  color: var(--amber);
+}
+
+.rabbit-exchange > code,
+.rabbit-exchange > span {
+  display: inline-block;
+  margin-top: 7px;
+  font-family: "SFMono-Regular", Consolas, monospace;
+  font-size: 7px;
+}
+
+.rabbit-exchange > code {
+  margin-left: 8px;
+  color: var(--muted);
+}
+
+.rabbit-exchange > span {
+  margin-left: 5px;
+  color: var(--amber);
+}
+
+.rabbit-binding {
+  display: flex;
+  height: 24px;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  color: var(--muted);
+}
+
+.rabbit-binding code {
+  color: var(--text-soft);
+  font-size: 7px;
+}
+
+.rabbit-queue {
+  min-height: 98px;
+}
+
+.rabbit-queue > header svg {
+  color: var(--blue);
+}
+
+.rabbit-queue-counts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border-bottom: 1px solid var(--line);
+}
+
+.rabbit-queue-counts > span {
+  display: grid;
+  gap: 1px;
+  padding: 5px 8px;
+  border-right: 1px solid var(--line);
+}
+
+.rabbit-queue-counts > span:last-child {
+  border-right: 0;
+}
+
+.rabbit-queue-counts strong {
+  color: var(--text);
+  font-family: "SFMono-Regular", Consolas, monospace;
+  font-size: 11px;
+}
+
+.rabbit-queue-counts small {
+  color: var(--muted);
+  font-size: 6px;
+}
+
+.rabbit-message-pills {
+  display: flex;
+  min-height: 30px;
+  flex-wrap: wrap;
+  gap: 4px;
+  align-content: center;
+  padding: 5px 7px;
+}
+
+.rabbit-message-pills span {
+  padding: 3px 5px;
+  color: var(--blue);
+  background: var(--blue-soft);
+  border-radius: 3px;
+  font-family: "SFMono-Regular", Consolas, monospace;
+  font-size: 7px;
+}
+
+.rabbit-message-pills span.is-unacked {
+  color: var(--amber);
+  background: var(--amber-soft);
+}
+
+.rabbit-message-pills span.is-redelivered {
+  color: var(--violet);
+  background: var(--violet-soft);
+}
+
+.rabbit-message-pills > small {
+  color: var(--muted);
+  font-size: 7px;
+}
+
+.rabbit-inspector {
+  overflow: hidden;
+}
+
+.rabbit-inspector__first-label {
+  margin-top: 8px !important;
+}
+
+.rabbit-receipts {
+  display: grid;
+  gap: 7px;
+}
+
+.rabbit-receipts > section {
+  overflow: hidden;
+  background: var(--surface-subtle);
+  border: 1px solid var(--line);
+  border-radius: 5px;
+}
+
+.rabbit-receipts > section.has-return {
+  background: var(--danger-soft);
+  border-color: color-mix(in srgb, var(--danger) 35%, var(--line));
+}
+
+.rabbit-receipts header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  padding: 6px 8px;
+  border-bottom: 1px solid var(--line);
+}
+
+.rabbit-receipts header strong {
+  color: var(--text);
+  font-size: 9px;
+}
+
+.rabbit-receipts header span {
+  color: var(--green);
+  font-family: "SFMono-Regular", Consolas, monospace;
+  font-size: 8px;
+}
+
+.rabbit-receipts .has-return header span {
+  color: var(--danger);
+}
+
+.rabbit-receipts section > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  padding: 6px 8px;
+}
+
+.rabbit-receipts code {
+  padding: 3px 5px;
+  color: var(--green);
+  background: var(--green-soft);
+  border-radius: 3px;
+  font-size: 7px;
+}
+
+.rabbit-receipts .has-return code {
+  color: var(--danger);
+  background: color-mix(in srgb, var(--danger-soft) 68%, var(--surface));
+}
+
+.rabbit-receipts section > small {
+  display: block;
+  padding: 7px 8px;
+  color: var(--muted);
+  font-size: 8px;
+}
+
+.rabbit-consumer-state {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+}
+
+.rabbit-consumer-state > div {
+  display: grid;
+  gap: 2px;
+  padding: 7px 8px;
+  background: var(--surface-subtle);
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.rabbit-consumer-state > div:nth-child(2n) {
+  border-right: 0;
+}
+
+.rabbit-consumer-state > div:nth-last-child(-n + 2) {
+  border-bottom: 0;
+}
+
+.rabbit-consumer-state span {
+  color: var(--muted);
+  font-size: 7px;
+}
+
+.rabbit-consumer-state strong {
+  color: var(--text-soft);
+  font-family: "SFMono-Regular", Consolas, monospace;
+  font-size: 8px;
+}
+
+.event-message.kind-return,
+.event-message.kind-nack,
+.event-message.kind-fault {
+  background: var(--danger-soft);
+}
+
+.event-message.kind-return .event-pulse,
+.event-message.kind-nack .event-pulse,
+.event-message.kind-fault .event-pulse {
+  background: var(--danger);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--danger) 13%, transparent);
+}
+
+.event-message.kind-return code,
+.event-message.kind-nack code,
+.event-message.kind-fault code {
+  color: var(--danger);
+}
+
+.event-message.kind-publish {
+  background: var(--amber-soft);
+}
+
+.event-message.kind-deliver {
+  background: var(--blue-soft);
+}
+
+.event-message.kind-deliver .event-pulse {
+  background: var(--blue);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--blue) 13%, transparent);
+}
+
+.event-message.kind-deliver code {
+  color: var(--blue);
+}
+
+.event-message.kind-confirm {
+  background: var(--green-soft);
+}
+
+.event-message.kind-confirm .event-pulse {
+  background: var(--green);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--green) 13%, transparent);
+}
+
+.event-message.kind-confirm code {
+  color: var(--green);
+}
+
 .event-message.kind-route,
 .event-message.kind-produce {
   background: var(--amber-soft);

@@ -35,6 +35,12 @@ describe('App hash navigation', () => {
     await nextTick()
 
     expect(wrapper.get('.current-path strong').text()).toBe('Apache Kafka')
+
+    window.location.hash = '#rabbitmq'
+    window.dispatchEvent(new HashChangeEvent('hashchange'))
+    await nextTick()
+
+    expect(wrapper.get('.current-path strong').text()).toBe('RabbitMQ')
     wrapper.unmount()
   })
 })
