@@ -62,10 +62,6 @@ function replicaOn(partition: KafkaPartitionState, brokerId: KafkaBrokerId) {
   return partition.replicas.find(({ broker }) => broker === brokerId)
 }
 
-function brokerIsDown(brokerId: KafkaBrokerId) {
-  return frame.value.brokers.find(({ id }) => id === brokerId)?.status === 'down'
-}
-
 function memberLabel(memberId: string) {
   const [group, consumer] = memberId.split('-c')
   return `${group === 'analytics' ? 'A' : 'B'}${consumer}`
@@ -322,42 +318,36 @@ onBeforeUnmount(() => {
                 <strong>Broker 集群 · 分区副本</strong>
                 <span><i class="is-leader">Leader</i><i>Follower</i></span>
               </header>
-              <div class="kafka-replica-matrix">
-                <div class="kafka-replica-matrix__header">
-                  <span>Partition</span>
-                  <span
-                    v-for="broker in frame.brokers"
-                    :key="broker.id"
-                    :class="{ 'is-down': broker.status === 'down' }"
-                  >
-                    <Server :size="12" />
-                    <strong>{{ brokerLabels[broker.id] }}</strong>
-                    <small>{{ broker.status.toUpperCase() }}</small>
-                  </span>
-                </div>
-                <div
-                  v-for="partition in frame.partitions"
-                  :key="partition.id"
-                  class="kafka-replica-row"
+              <div class="kafka-broker-stack">
+                <article
+                  v-for="broker in frame.brokers"
+                  :key="broker.id"
+                  class="kafka-broker"
+                  :class="{ 'is-down': broker.status === 'down', 'is-active': isRouteNode(broker.id) }"
                 >
-                  <strong class="kafka-replica-row__partition">P{{ partition.id }}</strong>
-                  <div
-                    v-for="broker in frame.brokers"
-                    :key="broker.id"
-                    class="kafka-partition-copy"
-                    :class="{
-                      'is-leader': replicaOn(partition, broker.id)?.role === 'leader',
-                      'is-active': frame.event.partition === partition.id && isRouteNode(broker.id),
-                      'is-out-of-sync': !replicaOn(partition, broker.id)?.inSync,
-                      'is-down': brokerIsDown(broker.id),
-                    }"
-                    :data-route-id="`${broker.id}-p${partition.id}`"
-                  >
-                    <span>{{ replicaOn(partition, broker.id)?.role === 'leader' ? 'Leader' : 'Follower' }}</span>
-                    <code>LEO {{ replicaOn(partition, broker.id)?.logEndOffset }}</code>
-                    <small>HW {{ partition.highWatermark }}</small>
+                  <header>
+                    <span><Server :size="13" /><strong>{{ brokerLabels[broker.id] }}</strong></span>
+                    <small>{{ broker.status.toUpperCase() }}</small>
+                  </header>
+                  <div class="kafka-broker-partitions">
+                    <div
+                      v-for="partition in frame.partitions"
+                      :key="partition.id"
+                      class="kafka-partition-copy"
+                      :class="{
+                        'is-leader': replicaOn(partition, broker.id)?.role === 'leader',
+                        'is-active': frame.event.partition === partition.id && isRouteNode(broker.id),
+                        'is-out-of-sync': !replicaOn(partition, broker.id)?.inSync,
+                      }"
+                      :data-route-id="`${broker.id}-p${partition.id}`"
+                    >
+                      <strong>P{{ partition.id }}</strong>
+                      <span>{{ replicaOn(partition, broker.id)?.role === 'leader' ? 'Leader' : 'Follower' }}</span>
+                      <code>LEO {{ replicaOn(partition, broker.id)?.logEndOffset }}</code>
+                      <small>HW {{ partition.highWatermark }}</small>
+                    </div>
                   </div>
-                </div>
+                </article>
               </div>
             </section>
 

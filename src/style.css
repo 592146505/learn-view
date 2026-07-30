@@ -2505,96 +2505,83 @@ button:disabled {
   background: var(--blue-soft);
 }
 
-.kafka-replica-matrix {
+.kafka-broker-stack {
   display: grid;
   min-width: 0;
+  gap: 5px;
+}
+
+.kafka-broker {
+  display: grid;
+  min-width: 0;
+  grid-template-columns: 58px minmax(0, 1fr);
   overflow: hidden;
   background: var(--surface);
   border: 1px solid var(--line-strong);
   border-radius: 6px;
   box-shadow: var(--shadow-soft);
+  transition: border-color 180ms ease, background 180ms ease, opacity 180ms ease;
 }
 
-.kafka-replica-matrix__header,
-.kafka-replica-row {
-  display: grid;
-  min-width: 0;
-  grid-template-columns: 58px repeat(3, minmax(0, 1fr));
+.kafka-broker.is-active {
+  border-color: var(--amber);
 }
 
-.kafka-replica-matrix__header {
-  min-height: 26px;
-  color: var(--muted);
-  background: var(--surface-subtle);
-  border-bottom: 1px solid var(--line);
+.kafka-broker.is-down {
+  background: var(--danger-soft);
+  border-color: var(--danger);
 }
 
-.kafka-replica-matrix__header > span {
+.kafka-broker > header {
   display: flex;
   min-width: 0;
+  flex-direction: column;
   align-items: center;
-  gap: 4px;
-  padding: 4px 7px;
-  border-left: 1px solid var(--line);
+  justify-content: center;
+  gap: 2px;
+  padding: 4px 5px;
+  background: var(--surface-subtle);
+  border-right: 1px solid var(--line);
 }
 
-.kafka-replica-matrix__header > span:first-child {
-  border-left: 0;
-  font-size: 7px;
-  font-weight: 750;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-}
-
-.kafka-replica-matrix__header > span:not(:first-child) {
+.kafka-broker > header span {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
   color: var(--blue);
 }
 
-.kafka-replica-matrix__header > span.is-down {
-  color: var(--danger);
-  background: var(--danger-soft);
-}
-
-.kafka-replica-matrix__header strong {
+.kafka-broker > header strong {
   font-size: 9px;
 }
 
-.kafka-replica-matrix__header small {
-  margin-left: auto;
+.kafka-broker > header small {
   color: var(--green);
   font-family: "SFMono-Regular", Consolas, monospace;
   font-size: 6px;
   font-weight: 750;
 }
 
-.kafka-replica-matrix__header .is-down small {
+.kafka-broker.is-down > header,
+.kafka-broker.is-down > header small {
   color: var(--danger);
+  background: var(--danger-soft);
 }
 
-.kafka-replica-row {
-  min-height: 29px;
-  border-bottom: 1px solid var(--line);
-}
-
-.kafka-replica-row:last-child {
-  border-bottom: 0;
-}
-
-.kafka-replica-row__partition {
-  display: flex;
-  align-items: center;
-  padding: 4px 8px;
-  font-family: "SFMono-Regular", Consolas, monospace;
-  font-size: 9px;
+.kafka-broker-partitions {
+  display: grid;
+  min-width: 0;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 .kafka-partition-copy {
   display: grid;
   min-width: 0;
-  grid-template-columns: minmax(45px, auto) minmax(0, 1fr) auto;
-  gap: 4px;
-  align-items: center;
-  padding: 4px 7px;
+  min-height: 42px;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 2px 4px;
+  align-content: center;
+  padding: 4px 5px;
   border-left: 1px solid var(--line);
   transition: color 180ms ease, background 180ms ease;
 }
@@ -2612,10 +2599,7 @@ button:disabled {
   opacity: 0.62;
 }
 
-.kafka-partition-copy.is-down {
-  background: var(--danger-soft);
-}
-
+.kafka-partition-copy strong,
 .kafka-partition-copy code,
 .kafka-partition-copy small,
 .kafka-partition-copy span {
@@ -2626,7 +2610,7 @@ button:disabled {
 
 .kafka-partition-copy span {
   justify-self: start;
-  padding: 3px 5px;
+  padding: 2px 4px;
   color: var(--muted);
   background: var(--surface-subtle);
   border-radius: 3px;
@@ -2640,12 +2624,14 @@ button:disabled {
 }
 
 .kafka-partition-copy code {
+  grid-column: 1;
   overflow: hidden;
   color: var(--text-soft);
   text-overflow: ellipsis;
 }
 
 .kafka-partition-copy small {
+  grid-column: 2;
   color: var(--muted);
 }
 
