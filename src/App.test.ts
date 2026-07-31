@@ -41,6 +41,12 @@ describe('App hash navigation', () => {
     await nextTick()
 
     expect(wrapper.get('.current-path strong').text()).toBe('RabbitMQ')
+
+    window.location.hash = '#rocketmq'
+    window.dispatchEvent(new HashChangeEvent('hashchange'))
+    await nextTick()
+
+    expect(wrapper.get('.current-path strong').text()).toBe('Apache RocketMQ')
     wrapper.unmount()
   })
 })
