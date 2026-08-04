@@ -25,6 +25,26 @@ npm test
 npm run build
 ```
 
+## Nginx 部署
+
+生产构建使用域名根路径。执行 `npm run build` 后，将 `dist/` 中的内容部署到站点根目录：
+
+```nginx
+server {
+    listen 80;
+    server_name example.com;
+
+    root /var/www/learn-view/dist;
+    index index.html;
+
+    location / {
+        try_files $uri $uri/ /index.html;
+    }
+}
+```
+
+重新打包时请替换旧的整个 `dist/`，避免 `index.html` 与带哈希的静态资源版本不一致。项目使用 hash 导航，例如 `/#rocketmq`，无需为各实验配置独立路由。
+
 ## 项目结构
 
 ```text
